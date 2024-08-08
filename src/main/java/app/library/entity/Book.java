@@ -5,10 +5,19 @@ import jakarta.persistence.Entity;
 @Entity
 public class Book {
 
+    private Long id;
     private String name;
     private String author;
     private String editor;
     private int year;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
