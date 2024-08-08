@@ -14,21 +14,11 @@ public class BookService {
 
 
     public String save(Book book){
+        bookRepository.save(book);
         return "Book successfully saved!";
     }
 
     public Book findById(Long id){
-
-        if (id == 1) {
-            Book book = new Book();
-            book.setName("IT");
-            book.setAuthor("Stephen King");
-            book.setEditor("Graciota");
-            book.setYear(1995);
-            return book;
-        }
-        else {
-            return null;
-        }
+        return bookRepository.findById(id).get();
     }
 }
