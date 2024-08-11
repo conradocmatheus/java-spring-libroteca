@@ -5,6 +5,8 @@ import app.library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class BookService {
@@ -12,13 +14,19 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-
     public String save(Book book){
         bookRepository.save(book);
         return "Book successfully saved!";
     }
-
+    public List<Book> listAll(){
+        return this.bookRepository.findAll();
+    }
     public Book findById(Long id){
         return bookRepository.findById(id).get();
     }
+    public String delete(Long id){
+        this.bookRepository.deleteById(id);
+        return "Livro deletado com sucesso";
+    }
+
 }
