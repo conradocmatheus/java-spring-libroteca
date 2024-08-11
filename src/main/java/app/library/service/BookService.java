@@ -24,9 +24,14 @@ public class BookService {
     public Book findById(Long id){
         return bookRepository.findById(id).get();
     }
+    public String updateBook(Book book, Long id){
+        book.setId(id);
+        bookRepository.save(book);
+        return "Book successfully updated!";
+    }
     public String delete(Long id){
         this.bookRepository.deleteById(id);
-        return "Livro deletado com sucesso";
+        return "Book successfully deleted!";
     }
 
 }

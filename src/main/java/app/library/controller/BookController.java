@@ -21,16 +21,16 @@ public class BookController {
     public ResponseEntity<String> save(@RequestBody Book book){
         try {
             String message = this.bookService.save(book);
-            return new ResponseEntity<String>(message, HttpStatus.CREATED);
+            return new ResponseEntity<>(message, HttpStatus.CREATED);
         } catch (Exception e){
-            return new ResponseEntity<String>("Could not save new book", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Could not save new book", HttpStatus.BAD_REQUEST);
         }
     }
     @GetMapping("/listAll")
     public ResponseEntity<List<Book>> listAll(){
         try{
-            List<Book> lista = this.bookService.listAll();
-            return new ResponseEntity<>(lista, HttpStatus.OK);
+            List<Book> list = this.bookService.listAll();
+            return new ResponseEntity<>(list, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
@@ -44,13 +44,24 @@ public class BookController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<String> update(@RequestBody Book book, @PathVariable Long id){
+        try {
+            String message = this.bookService.save(book);
+            return new ResponseEntity<>(message, HttpStatus.CREATED);
+        } catch (Exception e){
+            return new ResponseEntity<>("Could not update book", HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id){
         try{
-            String mensagem = this.bookService.delete(id);
-            return new ResponseEntity<>(mensagem, HttpStatus.OK);
+            String message = this.bookService.delete(id);
+            return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (Exception e){
-            return new ResponseEntity<>("Erro: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }
