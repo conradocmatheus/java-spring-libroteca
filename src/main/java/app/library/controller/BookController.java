@@ -2,7 +2,6 @@ package app.library.controller;
 
 import app.library.entity.Book;
 import app.library.service.BookService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
