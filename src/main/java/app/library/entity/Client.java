@@ -4,9 +4,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-import java.util.List;
-
-public class Author {
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,5 +12,13 @@ public class Author {
 
     private String name;
 
-    private List<Book> books;
+    private Integer age;
+
+    private String email;
+
+    private String phone;
+
+    private String cpf;
+
+    private String cep;
 }

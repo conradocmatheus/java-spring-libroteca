@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 
 import java.util.List;
 
-public class Author {
+public class Publisher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

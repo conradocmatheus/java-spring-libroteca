@@ -33,5 +33,4 @@ public class BookService {
         this.bookRepository.deleteById(id);
         return "Book successfully deleted!";
     }
-
 }

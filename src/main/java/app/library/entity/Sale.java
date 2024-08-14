@@ -4,15 +4,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-import java.util.List;
-
-public class Author {
+public class Sale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    // Book
 
-    private List<Book> books;
+    private Employee employee;
+
+    private Client client;
+
+    private Integer item;
+
+    private Double totalValue;
 }
