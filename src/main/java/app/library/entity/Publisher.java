@@ -24,5 +24,5 @@ public class Publisher {
 
     private String name;
 
-    private List<Book> books;
+    private List<Piece> pieces;
 }
