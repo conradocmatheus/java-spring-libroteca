@@ -25,4 +25,8 @@ public class Publisher {
     @JsonIgnoreProperties
     @OneToMany(mappedBy = "publisher")
     private List<Piece> pieces;
+
+    private String cnpj;
+
+    private String phone;
 }
