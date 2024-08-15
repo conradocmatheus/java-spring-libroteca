@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -22,5 +24,5 @@ public class PieceType {
 
     @JsonIgnoreProperties("pieceType")
     @OneToMany(mappedBy = "pieceType")
-    private Piece pieces;
+    private List<Piece> pieces;
 }
