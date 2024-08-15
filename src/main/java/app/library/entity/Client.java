@@ -33,18 +33,17 @@ public class Client {
     private String email;
 
     @Nullable
-    @Pattern(regexp = "^\\(\\d{2}\\)\\s\\d{5}-\\d{4}$", message = "Phone number format")
+    @Pattern(regexp = "^\\(\\d{2}\\)\\s\\d{5}-\\d{4}$", message = "Phone number format should be (XX) XXXXX-XXXX")
     private String phone;
 
-    @NotNull
+    @NotBlank
     @CPF
     private String cpf;
 
     @Nullable
-    @Pattern(regexp = "\\d{5}-\\d{3}", message = "Cep")
+    @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP format should be XXXXX-XXX")
     private String cep;
 
-    @Nullable
-    @OneToOne(mappedBy = "client")
+    @OneToOne(mappedBy = "client", fetch = FetchType.LAZY)
     private Sale sale;
 }
