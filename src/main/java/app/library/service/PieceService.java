@@ -27,7 +27,7 @@ public class PieceService {
         return pieceRepository.findById(id).get();
     }
 
-    public String updateBook(Piece piece, Long id){
+    public String update(Piece piece, Long id){
         piece.setId(id);
         pieceRepository.save(piece);
         return "Piece successfully updated!";
