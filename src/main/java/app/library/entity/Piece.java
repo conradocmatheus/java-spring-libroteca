@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -21,6 +23,9 @@ public class Piece {
 
     private String name;
 
+    @JsonIgnoreProperties
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private PieceType pieceType;
 
     @JsonIgnoreProperties
     @ManyToMany(cascade = CascadeType.PERSIST)
@@ -29,6 +34,10 @@ public class Piece {
     @JsonIgnoreProperties
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Publisher publisher;
+
+    @JsonIgnoreProperties
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Genre genre;
 
     private Integer year;
 
