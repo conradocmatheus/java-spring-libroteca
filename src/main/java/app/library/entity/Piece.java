@@ -23,21 +23,25 @@ public class Piece {
 
     private String name;
 
-    @JsonIgnoreProperties
+    @JsonIgnoreProperties("pieces")
     @ManyToOne(cascade = CascadeType.PERSIST)
     private PieceType pieceType;
 
-    @JsonIgnoreProperties
+    @JsonIgnoreProperties("pieces")
     @ManyToMany(cascade = CascadeType.PERSIST)
     private Author author;
 
-    @JsonIgnoreProperties
+    @JsonIgnoreProperties("pieces")
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Publisher publisher;
 
-    @JsonIgnoreProperties
+    @JsonIgnoreProperties("pieces")
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Genre genre;
+
+    @JsonIgnoreProperties("pieces")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Sale sale;
 
     private Integer year;
 
