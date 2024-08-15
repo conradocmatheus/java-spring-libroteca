@@ -29,7 +29,7 @@ public class AuthorService {
     // Delete an Author by ID
     public String delete(Long id){
         this.authorRepository.deleteById(id);
-        return "Car with id: " + id + "deleted";
+        return "Author with id: " + id + "deleted";
     }
 
     // List all Authors
