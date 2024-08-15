@@ -27,14 +27,17 @@ public class Piece {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private PieceType pieceType;
 
+    @NotBlank
     @JsonIgnoreProperties("pieces")
     @ManyToMany(cascade = CascadeType.PERSIST)
     private Author author;
 
+    @NotBlank
     @JsonIgnoreProperties("pieces")
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Publisher publisher;
 
+    @NotBlank
     @JsonIgnoreProperties("pieces")
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Genre genre;
