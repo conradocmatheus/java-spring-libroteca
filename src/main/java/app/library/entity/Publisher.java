@@ -1,8 +1,10 @@
 package app.library.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,8 +29,4 @@ public class Publisher {
     @JsonIgnoreProperties
     @OneToMany(mappedBy = "publisher")
     private List<Piece> pieces;
-
-    private String cnpj;
-
-    private String phone;
 }

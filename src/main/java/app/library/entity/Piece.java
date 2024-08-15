@@ -1,6 +1,7 @@
 package app.library.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,9 @@ public class Piece {
     @NotBlank
     @Size(min = 2, max = 50)
     private String name;
+
+    @Nullable
+    private String description;
 
     @NotNull
     @JsonIgnoreProperties("pieces")
