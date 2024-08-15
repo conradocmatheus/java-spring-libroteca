@@ -28,7 +28,7 @@ public class Sale {
 
     @Nullable
     @JsonIgnoreProperties("sales")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Employee employee;
 
     // when selling, if client age < 18, value must not pass 500$
@@ -39,18 +39,18 @@ public class Sale {
 
     @NotBlank
     @JsonIgnoreProperties("sale")
-    @OneToMany(mappedBy = "sale")
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Piece> pieces;
 
     @NotNull
     @Positive
     private Double totalValue;
 
-    @DateTimeFormat
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate saleDate;
 
     private String paymentMethod;
 
-    @NotNull
+    @NotBlank
     private String obs;
 }

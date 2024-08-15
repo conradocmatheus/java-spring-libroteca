@@ -35,7 +35,6 @@ public class Employee {
     @Email
     private String email;
 
-    @JsonIgnoreProperties("employee")
     @OneToMany(mappedBy = "employee")
     private List<Sale> sales;
 }

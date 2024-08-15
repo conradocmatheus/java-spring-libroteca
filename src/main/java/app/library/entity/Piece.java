@@ -8,12 +8,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties("pieces")
 public class Piece {
 
     @Id
@@ -22,38 +24,32 @@ public class Piece {
 
     @NotBlank
     @Size(min = 2, max = 50)
-    private String name;
+    private String title;
 
     @Nullable
     private String description;
 
     @NotNull
-    @JsonIgnoreProperties("pieces")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PieceType pieceType;
 
     @NotNull
-    @JsonIgnoreProperties("pieces")
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    private Author author;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Author> authors;
 
     @NotNull
-    @JsonIgnoreProperties("pieces")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Publisher publisher;
 
     @NotNull
-    @JsonIgnoreProperties("pieces")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Genre genre;
 
     @NotNull
-    @JsonIgnoreProperties("pieces")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Sale sale;
 
     @Min(0)
-    @Positive
     private Integer year;
 
     @Positive

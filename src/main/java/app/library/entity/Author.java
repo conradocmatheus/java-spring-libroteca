@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.List;
 
 @Entity
@@ -15,6 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties("pieces")
 public class Author {
 
     @Id
@@ -24,7 +24,6 @@ public class Author {
     @NotBlank
     private String name;
 
-    @JsonIgnoreProperties
-    @ManyToMany(mappedBy = "author")
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
     private List<Piece> pieces;
 }

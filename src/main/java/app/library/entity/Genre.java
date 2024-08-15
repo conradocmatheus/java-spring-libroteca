@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.List;
 
 @Entity
@@ -15,6 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties("pieces")
 public class Genre {
 
     @Id
@@ -24,7 +24,6 @@ public class Genre {
     @NotBlank
     private String name;
 
-    @JsonIgnoreProperties("genres")
-    @OneToMany(mappedBy = "genres")
+    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Piece> pieces;
 }

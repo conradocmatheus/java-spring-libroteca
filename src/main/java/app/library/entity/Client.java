@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
-
 @Entity
 @Getter
 @Setter
@@ -47,7 +46,6 @@ public class Client {
     private String cep;
 
     @Nullable
-    @JsonIgnoreProperties
     @OneToOne(mappedBy = "client")
     private Sale sale;
 }
