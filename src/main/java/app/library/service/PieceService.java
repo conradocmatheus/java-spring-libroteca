@@ -18,12 +18,15 @@ public class PieceService {
         pieceRepository.save(piece);
         return "Piece successfully saved!";
     }
+
     public List<Piece> listAll(){
         return this.pieceRepository.findAll();
     }
+
     public Piece findById(Long id){
         return pieceRepository.findById(id).get();
     }
+
     public String updateBook(Piece piece, Long id){
         piece.setId(id);
         pieceRepository.save(piece);
