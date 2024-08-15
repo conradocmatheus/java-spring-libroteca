@@ -3,10 +3,7 @@ package app.library.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,9 +26,11 @@ public class Client {
     @Pattern(regexp = "\\w+\\s\\w+", message = "Name must contain 2 words and 1 space character")
     private String name;
 
+    @NotNull
     @Positive
     private Integer age;
 
+    @NotBlank
     @Email
     private String email;
 
@@ -39,13 +38,15 @@ public class Client {
     @Pattern(regexp = "^\\(\\d{2}\\)\\s\\d{5}-\\d{4}$", message = "Phone number format")
     private String phone;
 
+    @NotNull
     @CPF
     private String cpf;
 
     @Nullable
-    @Pattern(regexp = "\\d{5}-\\d{3}", message = "Not valid")
+    @Pattern(regexp = "\\d{5}-\\d{3}", message = "Cep")
     private String cep;
 
+    @Nullable
     @JsonIgnoreProperties
     @OneToOne(mappedBy = "client")
     private Sale sale;
