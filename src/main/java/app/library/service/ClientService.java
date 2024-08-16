@@ -19,6 +19,11 @@ public class ClientService {
         return "Client: " + client.getName() + ", successfully saved";
     }
 
+    // Save more Clients
+    public List<Client> saveAll(List<Client> clients){
+        return clientRepository.saveAll(clients);
+    }
+
     // Update a Client by ID
     public String update(Client client, Long id) {
         client.setId(id);
@@ -40,5 +45,10 @@ public class ClientService {
     // Find a Client by ID
     public Client findById(Long id) {
         return clientRepository.findById(id).get();
+    }
+
+    // Verify client existence by ID
+    public boolean existsById(Long id) {
+        return clientRepository.existsById(id);
     }
 }
