@@ -37,6 +37,12 @@ public class AuthorService {
         return "Author with id: " + id + "deleted";
     }
 
+    // Delete all Authors
+    public void deleteAll() {
+        authorRepository.deleteAll();
+    }
+
+
     // List all Authors
     public List<Author> listAll(){
         return this.authorRepository.findAll();
