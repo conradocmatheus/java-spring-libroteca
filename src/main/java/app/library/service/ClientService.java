@@ -37,6 +37,11 @@ public class ClientService {
         return "Client with id: " + id + " deleted";
     }
 
+    // Delete all Clients
+    public void deleteAll() {
+        clientRepository.deleteAll();
+    }
+
     // List all Clients
     public List<Client> listAll() {
         return clientRepository.findAll();

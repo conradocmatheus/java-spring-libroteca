@@ -42,7 +42,6 @@ public class AuthorService {
         authorRepository.deleteAll();
     }
 
-
     // List all Authors
     public List<Author> listAll(){
         return this.authorRepository.findAll();
