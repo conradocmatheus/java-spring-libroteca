@@ -46,4 +46,9 @@ public class AuthorService {
     public Author findById(Long id){
         return this.authorRepository.findById(id).get();
     }
+
+    // Verify author existence by ID
+    public boolean existsById(Long id) {
+        return authorRepository.existsById(id);
+    }
 }
