@@ -13,27 +13,47 @@ public class PublisherService {
     @Autowired
     private PublisherRepository publisherRepository;
 
-    public String save(Publisher publisher){
+    // Save a single Publisher
+    public String save(Publisher publisher) {
         publisherRepository.save(publisher);
-        return "Publisher successfully saved!";
+        return "Publisher: " + publisher.getName() + " successfully saved";
     }
 
-    public List<Publisher> listAll(){
-        return this.publisherRepository.findAll();
+    // Save a list of Publishers
+    public List<Publisher> saveAll(List<Publisher> publishers) {
+        return publisherRepository.saveAll(publishers);
     }
 
-    public Publisher findById(Long id){
-        return publisherRepository.findById(id).get();
-    }
-
-    public String update(Publisher publisher, Long id){
+    // Update a Publisher by ID
+    public String update(Publisher publisher, Long id) {
         publisher.setId(id);
         publisherRepository.save(publisher);
-        return "Publisher successfully updated!";
+        return "Publisher: " + publisher.getName() + " successfully updated!";
     }
 
-    public String delete(Long id){
-        this.publisherRepository.deleteById(id);
-        return "Publisher successfully deleted!";
+    // Delete a Publisher by ID
+    public String delete(Long id) {
+        publisherRepository.deleteById(id);
+        return "Publisher with id: " + id + " deleted";
+    }
+
+    // Delete all Publishers
+    public void deleteAll() {
+        publisherRepository.deleteAll();
+    }
+
+    // List all Publishers
+    public List<Publisher> listAll() {
+        return publisherRepository.findAll();
+    }
+
+    // Find a Publisher by ID
+    public Publisher findById(Long id) {
+        return publisherRepository.findById(id).orElseThrow();
+    }
+
+    // Verify Publisher existence by ID
+    public boolean existsById(Long id) {
+        return publisherRepository.existsById(id);
     }
 }
