@@ -7,33 +7,53 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class PieceService {
 
     @Autowired
     private PieceRepository pieceRepository;
 
-    public String save(Piece piece){
+    // Save a single Piece
+    public String save(Piece piece) {
         pieceRepository.save(piece);
-        return "Piece successfully saved!";
+        return "Piece: " + piece.getTitle() + ", successfully saved";
     }
 
-    public List<Piece> listAll(){
-        return this.pieceRepository.findAll();
+    // Save a list of Pieces
+    public List<Piece> saveAll(List<Piece> pieces) {
+        return pieceRepository.saveAll(pieces);
     }
 
-    public Piece findById(Long id){
-        return pieceRepository.findById(id).get();
-    }
-
-    public String update(Piece piece, Long id){
+    // Update a Piece by ID
+    public String update(Piece piece, Long id) {
         piece.setId(id);
         pieceRepository.save(piece);
-        return "Piece successfully updated!";
+        return "Piece: " + piece.getTitle() + " successfully updated!";
     }
-    public String delete(Long id){
-        this.pieceRepository.deleteById(id);
-        return "Piece successfully deleted!";
+
+    // Delete a Piece by ID
+    public String delete(Long id) {
+        pieceRepository.deleteById(id);
+        return "Piece with id: " + id + " deleted";
+    }
+
+    // Delete all Pieces
+    public void deleteAll() {
+        pieceRepository.deleteAll();
+    }
+
+    // List all Pieces
+    public List<Piece> listAll() {
+        return pieceRepository.findAll();
+    }
+
+    // Find a Piece by ID
+    public Piece findById(Long id) {
+        return pieceRepository.findById(id).orElseThrow();
+    }
+
+    // Verify Piece existence by ID
+    public boolean existsById(Long id) {
+        return pieceRepository.existsById(id);
     }
 }
