@@ -19,6 +19,11 @@ public class AuthorService {
         return "Author: " + author.getName() + ", successfully saved";
     }
 
+    // Save more Authors
+    public List<Author> saveAll(List<Author> authors){
+        return authorRepository.saveAll(authors);
+    }
+
     // Update an Author by ID
     public String update(Author author, Long id){
         author.setId(id);
