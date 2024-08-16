@@ -19,26 +19,41 @@ public class GenreService {
         return "Genre: " + genre.getName() + ", successfully saved";
     }
 
-    // Update an Employee by ID
+    // Save more Genres
+    public List<Genre> saveAll(List<Genre> genres) {
+        return genreRepository.saveAll(genres);
+    }
+
+    // Update a Genre by ID
     public String update(Genre genre, Long id) {
         genre.setId(id);
         genreRepository.save(genre);
         return genre.getName() + " successfully updated!";
     }
 
-    // Delete an Employee by ID
+    // Delete a Genre by ID
     public String delete(Long id) {
         genreRepository.deleteById(id);
         return "Genre with id: " + id + " deleted";
     }
 
-    // List all Employees
+    // Delete all Genres
+    public void deleteAll() {
+        genreRepository.deleteAll();
+    }
+
+    // List all Genres
     public List<Genre> listAll() {
         return genreRepository.findAll();
     }
 
-    // Find an Employee by ID
+    // Find a Genre by ID
     public Genre findById(Long id) {
-        return genreRepository.findById(id).get();
+        return genreRepository.findById(id).orElseThrow();
+    }
+
+    // Verify genre existence by ID
+    public boolean existsById(Long id) {
+        return genreRepository.existsById(id);
     }
 }
