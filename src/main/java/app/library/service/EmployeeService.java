@@ -19,6 +19,11 @@ public class EmployeeService {
         return "Employee: " + employee.getName() + ", successfully saved";
     }
 
+    // Save more Employees
+    public List<Employee> saveAll(List<Employee> employees) {
+        return employeeRepository.saveAll(employees);
+    }
+
     // Update an Employee by ID
     public String update(Employee employee, Long id) {
         employee.setId(id);
@@ -40,5 +45,10 @@ public class EmployeeService {
     // Find an Employee by ID
     public Employee findById(Long id) {
         return employeeRepository.findById(id).get();
+    }
+
+    // Verify employee existence by ID
+    public boolean existsById(Long id) {
+        return employeeRepository.existsById(id);
     }
 }
