@@ -32,7 +32,4 @@ public class AuthorController {
             return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
         }
     }
-
-
-
 }
