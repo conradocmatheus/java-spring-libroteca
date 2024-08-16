@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/author")
@@ -56,6 +57,81 @@ public class AuthorController {
             ApiError apiError = new ApiError(
                     HttpStatus.BAD_REQUEST.value(),
                     "Error updating author",
+                    e.getMessage()
+            );
+            return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        try {
+            if (!authorService.existsById(id)) {
+                ApiError apiError = new ApiError(
+                        HttpStatus.NOT_FOUND.value(),
+                        "Author not found",
+                        "Author with ID " + id + " does not exist"
+                );
+                return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+            }
+            String msg = this.authorService.delete(id);
+            return new ResponseEntity<>(msg, HttpStatus.OK);
+        } catch (Exception e) {
+            ApiError apiError = new ApiError(
+                    HttpStatus.BAD_REQUEST.value(),
+                    "Error deleting author",
+                    e.getMessage()
+            );
+            return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<?> deleteAll() {
+        try {
+            this.authorService.deleteAll();
+            return new ResponseEntity<>("All authors have been deleted", HttpStatus.OK);
+        } catch (Exception e) {
+            ApiError apiError = new ApiError(
+                    HttpStatus.BAD_REQUEST.value(),
+                    "Error deleting all authors",
+                    e.getMessage()
+            );
+            return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/listAll")
+    public ResponseEntity<?> listAll() {
+        try {
+            List<Author> authors = this.authorService.listAll();
+            return new ResponseEntity<>(authors, HttpStatus.OK);
+        } catch (Exception e) {
+            ApiError apiError = new ApiError(
+                    HttpStatus.BAD_REQUEST.value(),
+                    "Error listing authors",
+                    e.getMessage()
+            );
+            return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        try {
+            Author author = this.authorService.findById(id);
+            return new ResponseEntity<>(author, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            ApiError apiError = new ApiError(
+                    HttpStatus.NOT_FOUND.value(),
+                    "Author not found",
+                    "Author with ID " + id + " does not exist"
+            );
+            return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            ApiError apiError = new ApiError(
+                    HttpStatus.BAD_REQUEST.value(),
+                    "Error finding author",
                     e.getMessage()
             );
             return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
