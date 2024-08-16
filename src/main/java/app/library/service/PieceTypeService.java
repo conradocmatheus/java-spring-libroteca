@@ -13,27 +13,47 @@ public class PieceTypeService {
     @Autowired
     private PieceTypeRepository pieceTypeRepository;
 
-    public String save(PieceType pieceType){
+    // Save a single PieceType
+    public String save(PieceType pieceType) {
         pieceTypeRepository.save(pieceType);
-        return "PieceType successfully saved!";
+        return "PieceType: " + pieceType.getName() + " successfully saved";
     }
 
-    public List<PieceType> listAll(){
-        return this.pieceTypeRepository.findAll();
+    // Save a list of PieceTypes
+    public List<PieceType> saveAll(List<PieceType> pieceTypes) {
+        return pieceTypeRepository.saveAll(pieceTypes);
     }
 
-    public PieceType findById(Long id){
-        return pieceTypeRepository.findById(id).get();
-    }
-
-    public String update(PieceType pieceType, Long id){
+    // Update a PieceType by ID
+    public String update(PieceType pieceType, Long id) {
         pieceType.setId(id);
         pieceTypeRepository.save(pieceType);
-        return "PieceType successfully updated!";
+        return "PieceType: " + pieceType.getName() + " successfully updated!";
     }
 
-    public String delete(Long id){
-        this.pieceTypeRepository.deleteById(id);
-        return "PieceType successfully deleted!";
+    // Delete a PieceType by ID
+    public String delete(Long id) {
+        pieceTypeRepository.deleteById(id);
+        return "PieceType with id: " + id + " deleted";
+    }
+
+    // Delete all PieceTypes
+    public void deleteAll() {
+        pieceTypeRepository.deleteAll();
+    }
+
+    // List all PieceTypes
+    public List<PieceType> listAll() {
+        return pieceTypeRepository.findAll();
+    }
+
+    // Find a PieceType by ID
+    public PieceType findById(Long id) {
+        return pieceTypeRepository.findById(id).orElseThrow();
+    }
+
+    // Verify PieceType existence by ID
+    public boolean existsById(Long id) {
+        return pieceTypeRepository.existsById(id);
     }
 }
