@@ -1,5 +1,6 @@
 package app.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -27,13 +28,14 @@ public class Employee {
     @Positive
     private Integer age;
 
-    @Nullable
+    @NotBlank
     @Pattern(regexp = "^\\(\\d{2}\\)\\s\\d{5}-\\d{4}$", message = "Phone number format")
     private String phone;
 
     @Email
     private String email;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Sale> sales;
 }
