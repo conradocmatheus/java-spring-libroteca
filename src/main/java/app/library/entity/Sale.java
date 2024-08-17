@@ -1,6 +1,8 @@
 package app.library.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -8,7 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -22,13 +24,14 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @Nullable
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Employee employee;
 
     @NotNull
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) // Change to ManyToOne to allow repeated client entries
+    @JsonBackReference
     private Client client;
 
     @NotNull
@@ -40,7 +43,8 @@ public class Sale {
     private Double totalValue;
 
     @NotNull
-    private LocalDate saleDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private Date localDate;
 
     @NotBlank
     private String paymentMethod;
@@ -48,3 +52,4 @@ public class Sale {
     @NotBlank
     private String obs;
 }
+

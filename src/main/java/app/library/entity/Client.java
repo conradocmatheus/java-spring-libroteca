@@ -1,5 +1,8 @@
 package app.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -8,6 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -47,6 +52,7 @@ public class Client {
     @NotBlank
     private String homeAddress;
 
-    @OneToOne(mappedBy = "client", fetch = FetchType.LAZY)
-    private Sale sale;
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Sale> sales;
 }
