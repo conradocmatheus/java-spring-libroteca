@@ -44,6 +44,9 @@ public class Client {
     @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP format should be XXXXX-XXX")
     private String cep;
 
+    @NotBlank
+    private String homeAddress;
+
     @OneToOne(mappedBy = "client", fetch = FetchType.LAZY)
     private Sale sale;
 }
