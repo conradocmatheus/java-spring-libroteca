@@ -21,8 +21,8 @@ public class SaleController {
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody Sale sale) {
         try {
-            String msg = this.saleService.save(sale);
-            return new ResponseEntity<>(msg, HttpStatus.CREATED);
+            Sale savedSale = this.saleService.save(sale);
+            return new ResponseEntity<>(savedSale, HttpStatus.CREATED);
         } catch (Exception e) {
             ApiError apiError = new ApiError(
                     HttpStatus.BAD_REQUEST.value(),
