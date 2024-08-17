@@ -31,7 +31,7 @@ public class Sale {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY) // Change to ManyToOne to allow repeated client entries
-    @JsonBackReference
+    @JsonBackReference("client-sales")
     private Client client;
 
     @NotNull

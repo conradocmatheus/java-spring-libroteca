@@ -53,6 +53,6 @@ public class Client {
     private String homeAddress;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference("client-sales")
     private List<Sale> sales;
 }

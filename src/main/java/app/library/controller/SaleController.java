@@ -24,7 +24,7 @@ public class SaleController {
         try {
             System.out.println("Entro aq tbm");
             Sale savedSale = this.saleService.save(sale);
-            return new ResponseEntity<>(savedSale.toString(), HttpStatus.CREATED);
+            return new ResponseEntity<>(savedSale, HttpStatus.CREATED);
         } catch (Exception e) {
             ApiError apiError = new ApiError(
                     HttpStatus.BAD_REQUEST.value(),
