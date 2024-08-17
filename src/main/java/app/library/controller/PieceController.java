@@ -21,8 +21,8 @@ public class PieceController {
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody Piece piece) {
         try {
-            String msg = this.pieceService.save(piece);
-            return new ResponseEntity<>(msg, HttpStatus.CREATED);
+            Piece savedPiece = this.pieceService.save(piece);
+            return new ResponseEntity<>(savedPiece, HttpStatus.CREATED);
         } catch (Exception e) {
             ApiError apiError = new ApiError(
                     HttpStatus.BAD_REQUEST.value(),

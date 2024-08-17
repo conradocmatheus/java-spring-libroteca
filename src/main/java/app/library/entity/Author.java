@@ -24,6 +24,6 @@ public class Author {
     @NotBlank
     private String name;
 
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Piece> pieces;
 }

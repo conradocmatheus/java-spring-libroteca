@@ -1,5 +1,6 @@
 package app.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -23,5 +24,6 @@ public class PieceType {
     private String name;
 
     @OneToMany(mappedBy = "pieceType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference// dont change
     private List<Piece> pieces;
 }

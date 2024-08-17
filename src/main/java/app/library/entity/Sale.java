@@ -3,7 +3,7 @@ package app.library.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+        import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -31,13 +31,12 @@ public class Sale {
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Employee employee;
 
-    // when selling, if client age < 18, value must not pass 500$
     @NotNull
     @JsonIgnoreProperties("sale")
     @OneToOne(cascade = CascadeType.PERSIST)
     private Client client;
 
-    @NotBlank
+    @NotNull
     @JsonIgnoreProperties("sale")
     @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Piece> pieces;
@@ -54,3 +53,4 @@ public class Sale {
     @NotBlank
     private String obs;
 }
+
