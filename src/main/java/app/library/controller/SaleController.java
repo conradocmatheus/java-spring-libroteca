@@ -33,21 +33,6 @@ public class SaleController {
         }
     }
 
-    @PostMapping("/saveAll")
-    public ResponseEntity<?> saveAll(@RequestBody List<Sale> sales) {
-        try {
-            List<Sale> savedSales = this.saleService.saveAll(sales);
-            return new ResponseEntity<>(savedSales, HttpStatus.CREATED);
-        } catch (Exception e) {
-            ApiError apiError = new ApiError(
-                    HttpStatus.BAD_REQUEST.value(),
-                    "Error saving Sales",
-                    e.getMessage()
-            );
-            return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
-        }
-    }
-
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Sale sale) {
         try {

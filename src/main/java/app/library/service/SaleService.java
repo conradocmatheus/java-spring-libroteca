@@ -72,11 +72,6 @@ public class SaleService {
         }
     }
 
-    // Save a list of Sales
-    public List<Sale> saveAll(List<Sale> sales) {
-        return saleRepository.saveAll(sales);
-    }
-
     // Update a Sale by ID
     public String update(Sale sale, Long id) {
         sale.setId(id);

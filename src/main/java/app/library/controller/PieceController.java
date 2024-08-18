@@ -33,21 +33,6 @@ public class PieceController {
         }
     }
 
-    @PostMapping("/saveAll")
-    public ResponseEntity<?> saveAll(@RequestBody List<Piece> pieces) {
-        try {
-            List<Piece> savedPieces = this.pieceService.saveAll(pieces);
-            return new ResponseEntity<>(savedPieces, HttpStatus.CREATED);
-        } catch (Exception e) {
-            ApiError apiError = new ApiError(
-                    HttpStatus.BAD_REQUEST.value(),
-                    "Error saving pieces",
-                    e.getMessage()
-            );
-            return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
-        }
-    }
-
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Piece piece) {
         try {

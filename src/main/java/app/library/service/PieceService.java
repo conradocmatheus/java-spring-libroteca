@@ -65,12 +65,6 @@ public class PieceService {
         }
     }
 
-
-    // Save a list of Pieces
-    public List<Piece> saveAll(List<Piece> pieces) {
-        return pieceRepository.saveAll(pieces);
-    }
-
     // Update a Piece by ID
     public String update(Piece piece, Long id) {
         piece.setId(id);
