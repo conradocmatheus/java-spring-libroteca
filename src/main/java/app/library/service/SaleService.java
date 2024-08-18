@@ -45,17 +45,23 @@ public class SaleService {
                 sale.setEmployee(employee);
             }
 
-            double total = 0.0;
-            if (sale.getPieces() != null && !sale.getPieces().isEmpty()) {
-                List<Piece> updatedPieceList = new ArrayList<>();
-                for (Piece piece : sale.getPieces()) {
-                    Piece pieceFound = pieceRepository.findById(piece.getId())
-                            .orElseThrow(() -> new RuntimeException("Product with ID " + piece.getId() + " not found"));
-                    updatedPieceList.add(pieceFound);
-                    total += pieceFound.getValue();
-                }
-                sale.setPieces(updatedPieceList);
+            if (sale.getPieces() == null || sale.getPieces().isEmpty()) {
+                throw new IllegalArgumentException("Sale must contain at least one product");
             }
+
+            if (sale.getClient().getAge() < 18 && sale.getTotalValue() > 500) {
+                throw new IllegalArgumentException("For underage clients, the maximum value is 500$");
+            }
+
+            double total = 0.0;
+            List<Piece> updatedPieceList = new ArrayList<>();
+            for (Piece piece : sale.getPieces()) {
+                Piece pieceFound = pieceRepository.findById(piece.getId())
+                        .orElseThrow(() -> new RuntimeException("Product with ID " + piece.getId() + " not found"));
+                updatedPieceList.add(pieceFound);
+                total += pieceFound.getValue();
+            }
+            sale.setPieces(updatedPieceList);
             sale.setTotalValue(total);
 
             // Save the sale and return it

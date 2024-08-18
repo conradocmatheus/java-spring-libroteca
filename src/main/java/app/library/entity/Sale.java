@@ -35,6 +35,7 @@ public class Sale {
     private Client client;
 
     @NotNull
+    @NotEmpty
     @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
     private List<Piece> pieces;
 
@@ -49,7 +50,7 @@ public class Sale {
     @NotBlank
     private String paymentMethod;
 
-    @NotBlank
+    @NotBlank(message = "Observation must neither be blank nor null")
     private String obs;
 }
 
