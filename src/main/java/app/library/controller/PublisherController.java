@@ -3,12 +3,17 @@ package app.library.controller;
 import app.library.entity.Publisher;
 import app.library.exception.ApiError;
 import app.library.service.PublisherService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -19,7 +24,7 @@ public class PublisherController {
     private PublisherService publisherService;
 
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody Publisher publisher) {
+    public ResponseEntity<?> save(@Valid @RequestBody Publisher publisher) {
         try {
             String msg = this.publisherService.save(publisher);
             return new ResponseEntity<>(msg, HttpStatus.CREATED);
@@ -49,7 +54,7 @@ public class PublisherController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Publisher publisher) {
+    public ResponseEntity<?> update(@Valid @PathVariable Long id, @RequestBody Publisher publisher) {
         try {
             String msg = this.publisherService.update(publisher, id);
             return new ResponseEntity<>(msg, HttpStatus.OK);
@@ -151,5 +156,17 @@ public class PublisherController {
             );
             return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 }

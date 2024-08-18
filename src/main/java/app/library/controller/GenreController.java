@@ -3,12 +3,17 @@ package app.library.controller;
 import app.library.entity.Genre;
 import app.library.exception.ApiError;
 import app.library.service.GenreService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -19,7 +24,7 @@ public class GenreController {
     private GenreService genreService;
 
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody Genre genre) {
+    public ResponseEntity<?> save(@Valid @RequestBody Genre genre) {
         try {
             String msg = genreService.save(genre);
             return new ResponseEntity<>(msg, HttpStatus.CREATED);
@@ -49,7 +54,7 @@ public class GenreController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Genre genre) {
+    public ResponseEntity<?> update(@Valid @PathVariable Long id, @RequestBody Genre genre) {
         try {
             String msg = genreService.update(genre, id);
             return new ResponseEntity<>(msg, HttpStatus.OK);
@@ -136,5 +141,17 @@ public class GenreController {
             );
             return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 }

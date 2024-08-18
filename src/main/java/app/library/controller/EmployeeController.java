@@ -3,12 +3,17 @@ package app.library.controller;
 import app.library.entity.Employee;
 import app.library.exception.ApiError;
 import app.library.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -19,7 +24,7 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody Employee employee) {
+    public ResponseEntity<?> save(@Valid @RequestBody Employee employee) {
         try {
             String msg = this.employeeService.save(employee);
             return new ResponseEntity<>(msg, HttpStatus.CREATED);
@@ -34,7 +39,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Employee employee) {
+    public ResponseEntity<?> update(@Valid @PathVariable Long id, @RequestBody Employee employee) {
         try {
             String msg = this.employeeService.update(employee, id);
             return new ResponseEntity<>(msg, HttpStatus.OK);
@@ -106,5 +111,17 @@ public class EmployeeController {
             );
             return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 }
