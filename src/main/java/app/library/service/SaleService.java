@@ -64,11 +64,11 @@ public class SaleService {
             sale.setPieces(updatedPieceList);
             sale.setTotalValue(total);
 
-            // Save the sale and return it
             return saleRepository.save(sale);
-        } catch (Exception e) {
-            System.out.println("Error saving sale: " + e.getMessage());
-            return null;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage(), e);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
