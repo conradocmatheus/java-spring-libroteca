@@ -25,17 +25,17 @@ public class Sale {
     private Long id;
 
     @Nullable
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JsonBackReference
     private Employee employee;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY) // Change to ManyToOne to allow repeated client entries
+    @ManyToOne
     @JsonBackReference("client-sales")
     private Client client;
 
     @NotNull
-    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
     private List<Piece> pieces;
 
     @NotNull

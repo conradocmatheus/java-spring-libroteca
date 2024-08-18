@@ -1,7 +1,5 @@
 package app.library.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -52,7 +50,7 @@ public class Client {
     @NotBlank
     private String homeAddress;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     @JsonManagedReference("client-sales")
     private List<Sale> sales;
 }

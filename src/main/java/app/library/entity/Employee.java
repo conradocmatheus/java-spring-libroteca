@@ -1,7 +1,6 @@
 package app.library.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -35,7 +34,7 @@ public class Employee {
     @Email
     private String email;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Sale> sales;
 }
