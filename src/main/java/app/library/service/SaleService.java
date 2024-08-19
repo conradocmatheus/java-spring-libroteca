@@ -74,12 +74,7 @@ public class SaleService {
         }
     }
 
-    // Update a Sale by ID
-    public String update(Sale sale, Long id) {
-        sale.setId(id);
-        saleRepository.save(sale);
-        return "Sale successfully updated!";
-    }
+    // Sales cannot be updated
 
     // Delete a Sale by ID
     public String delete(Long id) {

@@ -38,20 +38,7 @@ public class SaleController {
         }
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@Valid @PathVariable Long id, @RequestBody Sale sale) {
-        try {
-            String msg = this.saleService.update(sale, id);
-            return new ResponseEntity<>(msg, HttpStatus.OK);
-        } catch (Exception e) {
-            ApiError apiError = new ApiError(
-                    HttpStatus.BAD_REQUEST.value(),
-                    "Error updating Sale",
-                    e.getMessage()
-            );
-            return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
-        }
-    }
+    // Sales cannot be updated
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
